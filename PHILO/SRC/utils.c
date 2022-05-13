@@ -6,7 +6,7 @@
 /*   By: hmoubal <hmoubal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 18:55:33 by haitam            #+#    #+#             */
-/*   Updated: 2022/05/13 20:51:49 by hmoubal          ###   ########.fr       */
+/*   Updated: 2022/05/13 21:17:59 by hmoubal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ int	ft_malloc(void *tab)
 	return (0);
 }
 
-int	ft_time(t_shared	*shared)
+long	ft_time(t_shared	*shared)
 {
-	int				time;
+	long			time;
 	struct timeval	end;
 
 	gettimeofday(&end, NULL);

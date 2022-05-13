@@ -6,7 +6,7 @@
 /*   By: hmoubal <hmoubal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 15:52:34 by hmoubal           #+#    #+#             */
-/*   Updated: 2022/05/13 20:39:23 by hmoubal          ###   ########.fr       */
+/*   Updated: 2022/05/13 21:18:14 by hmoubal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ typedef struct s_args{
 	t_fork		*fork1;
 	t_fork		*fork2;
 	int			index;
-	int			last_meal;
+	long		last_meal;
 	t_shared	*shared;
 }	t_args;
 

@@ -6,7 +6,7 @@
 /*   By: hmoubal <hmoubal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 15:42:34 by hmoubal           #+#    #+#             */
-/*   Updated: 2022/05/13 17:52:28 by hmoubal          ###   ########.fr       */
+/*   Updated: 2022/05/13 21:22:44 by hmoubal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ typedef struct s_shared{
 	int				sleep_time;
 	int				eating_time;
 	int				index_death;
-	int				time_death;
+	long			time_death;
 	struct timeval	start;
 	pthread_mutex_t	death_flag;
 	t_fork			*fork;

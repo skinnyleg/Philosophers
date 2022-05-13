@@ -6,7 +6,7 @@
 /*   By: hmoubal <hmoubal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 18:09:05 by haitam            #+#    #+#             */
-/*   Updated: 2022/05/13 17:50:31 by hmoubal          ###   ########.fr       */
+/*   Updated: 2022/05/13 21:18:25 by hmoubal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,5 @@ char	**ft_split(char const *s,	char c);
 void	*ft_memcpy(void *dest,	const void *src,	size_t size);
 int		ft_malloc(void *tab);
 int		ft_isdigit(int a);
-int		ft_time(t_shared *shared);
+long	ft_time(t_shared *shared);
 #endif
