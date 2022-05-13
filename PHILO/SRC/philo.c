@@ -6,7 +6,7 @@
 /*   By: hmoubal <hmoubal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 20:08:06 by hmoubal           #+#    #+#             */
-/*   Updated: 2022/05/13 20:49:24 by hmoubal          ###   ########.fr       */
+/*   Updated: 2022/05/13 21:04:44 by hmoubal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,10 @@ void	*ft_routine(void *arg)
 	t_args	*philo;
 
 	philo = (t_args *)arg;
-	try_hold_fork(philo->fork1);
-	printf("ajskbd\n");
-	try_hold_fork(philo->fork2);
+	if (try_hold_fork(philo->fork1) == false)
+		return (NULL);
+	if (try_hold_fork(philo->fork2) == false)
+		return (NULL);
 	printf("%d %d has taken a fork\n", ft_time(philo->shared), philo->index + 1);
 	return (NULL);
 }
@@ -59,12 +60,10 @@ int	main(int ac, char **av)
 		return (printf("arguments error\n"), 1);
 	if (ft_checknumbers(av) == 1)
 		return (1);
-	(void)philo;
-	(void)i;
-	// i = ft_atoi(av[1]);
-	// philo = args_create(i, av);
-	// if (philo == NULL)
-	// 	return (destroy_all_err(philo), 1);
-	// if (ft_threads(philo) == 1)
-	// 	return (destroy_all_err(philo), 1);
+	i = ft_atoi(av[1]);
+	philo = args_create(i, av);
+	if (philo == NULL)
+		return (destroy_all_err(philo), 1);
+	if (ft_threads(philo) == 1)
+		return (destroy_all_err(philo), 1);
 }
