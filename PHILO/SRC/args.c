@@ -6,7 +6,7 @@
 /*   By: hmoubal <hmoubal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 16:54:38 by hmoubal           #+#    #+#             */
-/*   Updated: 2022/05/13 20:39:12 by hmoubal          ###   ########.fr       */
+/*   Updated: 2022/05/14 15:12:51 by hmoubal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,13 @@ t_args	*args_create(int philo_count, char **av)
 	philo = (t_args *)malloc(sizeof(t_args) * philo_count);
 	if (philo == NULL)
 		return (NULL);
-	gettimeofday(&(shared->start), NULL);
+	shared->start_counter = ft_time();
 	while (i < philo_count)
 	{
 		philo[i].shared = shared;
 		philo[i].index = i;
-		philo[i].last_meal = ft_time(shared);
+		philo[i].last_meal = ft_time();
+		philo[i].meals = shared->max_eat;
 		i++;
 	}
 	args_init(philo);
@@ -59,9 +60,9 @@ void	args_init(t_args *philo)
 void	ft_fork_left(t_args *philo, int i)
 {
 	if (i % 2)
-		philo->fork1 = &(philo->shared->fork[philo->index]);
+		philo->fork1 = &(philo->shared->fork[i]);
 	else
-		philo->fork1 = &(philo->shared->fork[(philo->index
+		philo->fork1 = &(philo->shared->fork[(i
 					+ philo->shared->philo_count - 1)
 				% philo->shared->philo_count]);
 }
@@ -69,9 +70,9 @@ void	ft_fork_left(t_args *philo, int i)
 void	ft_fork_right(t_args *philo, int i)
 {
 	if (i % 2)
-		philo->fork2 = &(philo->shared->fork[(philo->index
+		philo->fork2 = &(philo->shared->fork[(i
 					+ philo->shared->philo_count - 1)
 				% philo->shared->philo_count]);
 	else
-		philo->fork2 = &(philo->shared->fork[philo->index]);
+		philo->fork2 = &(philo->shared->fork[i]);
 }

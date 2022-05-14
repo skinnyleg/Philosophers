@@ -6,7 +6,7 @@
 /*   By: hmoubal <hmoubal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 15:39:31 by hmoubal           #+#    #+#             */
-/*   Updated: 2022/05/13 20:36:40 by hmoubal          ###   ########.fr       */
+/*   Updated: 2022/05/14 14:53:13 by hmoubal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define FORK_H
 
 # include "philo.h"
+# include <pthread.h>
 
 typedef struct s_fork{
 	int				hold;

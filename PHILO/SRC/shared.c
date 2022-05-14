@@ -6,7 +6,7 @@
 /*   By: hmoubal <hmoubal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 16:29:38 by hmoubal           #+#    #+#             */
-/*   Updated: 2022/05/13 20:32:02 by hmoubal          ###   ########.fr       */
+/*   Updated: 2022/05/14 15:12:33 by hmoubal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,22 @@ void	shared_destroy(t_shared *shared)
 		i++;
 	}
 	free(shared->fork);
+	free(shared);
 }
 
-bool	shared_should_die(t_shared *shared, int last_meal, int index)
+bool	shared_should_die(t_shared *shared, long last_meal, int index)
 {
 	pthread_mutex_lock(&(shared->death_flag));
 	if (shared->index_death == -1
-		&& ft_time(shared) - last_meal > shared->philo_life / 1000)
+		&& ft_time() - last_meal > shared->philo_life / 1000)
 	{
 		shared->index_death = index;
-		shared->time_death = ft_time(shared);
+		shared->time_death = ft_time() - shared->start_counter;
+		pthread_mutex_unlock(&(shared->death_flag));
+		return (true);
+	}
+	if (shared->index_death >= 0)
+	{
 		pthread_mutex_unlock(&(shared->death_flag));
 		return (true);
 	}

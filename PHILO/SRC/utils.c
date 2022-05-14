@@ -6,7 +6,7 @@
 /*   By: hmoubal <hmoubal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 18:55:33 by haitam            #+#    #+#             */
-/*   Updated: 2022/05/13 21:17:59 by hmoubal          ###   ########.fr       */
+/*   Updated: 2022/05/14 15:31:45 by hmoubal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,27 @@ int	ft_malloc(void *tab)
 	return (0);
 }
 
-long	ft_time(t_shared	*shared)
+long	ft_time(void)
 {
 	long			time;
 	struct timeval	end;
 
 	gettimeofday(&end, NULL);
-	time = (end.tv_sec * 1000 + end.tv_usec / 1000)
-		- (shared->start.tv_sec * 1000 + shared->start.tv_usec / 1000);
+	time = (end.tv_sec * 1000 + end.tv_usec / 1000);
 	return (time);
+}
+
+bool	increment_sleep(t_args *philo, int duration)
+{
+	long			start;
+
+	start = ft_time();
+	while (ft_time() - start < duration / 1000)
+	{
+		if (shared_should_die(philo->shared,
+				philo->last_meal, philo->index) == true)
+			return (true);
+		usleep(100);
+	}
+	return (false);
 }
