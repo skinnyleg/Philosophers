@@ -7,6 +7,9 @@ CFILES = main.c\
 		utils_bonus.c\
 		ft_split_bonus.c\
 		ft_atoi_bonus.c\
+		shared_bonus.c\
+		ft_routine_bonus.c\
+		destroy_all_bonus.c\
 
 OFILES = $(addprefix $(OBJ_DIR)/,$(CFILES:.c=.o))
 

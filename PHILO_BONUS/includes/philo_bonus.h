@@ -6,7 +6,7 @@
 /*   By: hmoubal <hmoubal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 18:09:05 by haitam            #+#    #+#             */
-/*   Updated: 2022/05/15 19:15:04 by hmoubal          ###   ########.fr       */
+/*   Updated: 2022/05/15 21:27:32 by hmoubal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,11 @@
 # include <unistd.h>
 # include <pthread.h>
 # include <sys/time.h>
+# include <fcntl.h>
 # include <stdbool.h>
+# include <semaphore.h>
+# include "shared_bonus.h"
+# include "destroy_all_bonus.h"
 
 typedef struct s_int{
 	int	i;
@@ -40,4 +44,7 @@ void	*ft_memcpy_bonus(void *dest, const void *src, size_t size);
 int		ft_malloc_bonus(void *tab);
 int		ft_isdigit_bonus(int a);
 long	ft_time_bonus(void);
+void	ft_routine_1_bonus(t_shared *shared);
+int		ft_routine_2_bonus(t_shared *shared);
+bool	try_hold_bonus(t_shared *shared);
 #endif
