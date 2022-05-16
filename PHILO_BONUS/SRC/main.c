@@ -6,7 +6,7 @@
 /*   By: hmoubal <hmoubal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 19:07:58 by hmoubal           #+#    #+#             */
-/*   Updated: 2022/05/16 18:38:17 by hmoubal          ###   ########.fr       */
+/*   Updated: 2022/05/16 18:44:20 by hmoubal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,30 +46,26 @@ void	ft_start(t_shared *shared, int i)
 
 int	ft_proc(t_shared *shared)
 {
-	int	i;
-	int	j;
+	t_int	var;
 
-	i = 0;
-	j = 0;
+	var.i = 0;
+	var.j = -1;
 	shared->pid = (pid_t *)malloc(sizeof(pid_t) * shared->philo_count);
 	if (shared->pid == NULL)
 		return (1);
-	while (i < shared->philo_count)
+	while (var.i < shared->philo_count)
 	{
-		shared->pid[i] = fork();
-		if (shared->pid[i] == 0)
-			ft_start(shared, i);
-		i++;
+		shared->pid[var.i] = fork();
+		if (shared->pid[var.i] == 0)
+			ft_start(shared, var.i);
+		(var.i)++;
 	}
-	while (waitpid(-1, &i, 0) > 0)
+	while (waitpid(-1, &(var.i), 0) > 0)
 	{
-		if (WIFEXITED(i) && WEXITSTATUS(i) == 1)
+		if (WIFEXITED(var.i) && WEXITSTATUS(var.i) == 1)
 		{
-			while (j < shared->philo_count)
-			{
-				kill (shared->pid[j], SIGTERM);
-				j++;
-			}
+			while (++var.j < shared->philo_count)
+				kill (shared->pid[var.j], SIGTERM);
 		}
 	}
 	return (0);
