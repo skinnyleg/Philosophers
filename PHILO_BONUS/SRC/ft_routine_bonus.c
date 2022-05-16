@@ -6,56 +6,50 @@
 /*   By: hmoubal <hmoubal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 20:45:37 by hmoubal           #+#    #+#             */
-/*   Updated: 2022/05/15 21:39:18 by hmoubal          ###   ########.fr       */
+/*   Updated: 2022/05/16 17:13:05 by hmoubal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo_bonus.h"
 
-bool	try_hold_bonus(t_shared *shared)
-{
-	while (1)
-	{
-		if (shared_should_die_bonus(shared) == true)
-			return (false);
-		if (try_hold_fork(fork) == true)
-			return (true);
-	}
-	return (false);
-}
-
-int	ft_routine_2_bonus(t_shared *shared)
+void	ft_routine_2_bonus(t_shared *shared)
 {
 	sem_post(shared->forks);
 	sem_post(shared->forks);
+	sem_wait(shared->death);
 	printf("%ld %d is sleeping\n",
-		ft_time() - shared->start_counter, shared->index + 1);
-	if (increment_sleep(shared) == true)
-		return (1);
+		ft_time_bonus() - shared->start_counter, shared->index + 1);
+	sem_post(shared->death);
+	increment_sleep_bonus(shared->sleep_time);
+	sem_wait(shared->death);
 	printf("%ld %d is thinking\n",
-		ft_time() - shared->start_counter, shared->index + 1);
-	return (0);
+		ft_time_bonus() - shared->start_counter, shared->index + 1);
+	sem_post(shared->death);
+
 }
 
 void	ft_routine_1_bonus(t_shared *shared)
 {
 	while (shared->max_eat == -2 || shared->max_eat--)
 	{
-		if (try_hold_bonus(shared) == false)
-			break ;
+		sem_wait(shared->forks);
+		sem_wait(shared->death);
 		printf("%ld %d has taken a fork\n",
-			ft_time() - shared->start_counter, shared->index + 1);
-		if (try_hold_bonus(shared) == false)
-			break ;
+			ft_time_bonus() - shared->start_counter, shared->index + 1);
+		sem_post(shared->death);
+		sem_wait(shared->forks);
+		sem_wait(shared->death);
 		printf("%ld %d has taken a fork\n",
-			ft_time() - shared->start_counter, shared->index + 1);
-		shared->last_meal = ft_time();
+			ft_time_bonus() - shared->start_counter, shared->index + 1);
+		sem_post(shared->death);
+		shared->last_meal = ft_time_bonus();
+		sem_wait(shared->death);
 		printf("%ld %d is eating\n",
-			ft_time() - shared->start_counter, shared->index + 1);
-		if (increment_sleep(shared) == true)
-			break ;
-		if (ft_routine_2_bonus(shared) == 1)
-			break ;
+			ft_time_bonus() - shared->start_counter, shared->index + 1);
+		sem_post(shared->death);
+		increment_sleep_bonus(shared->eating_time);
+		ft_routine_2_bonus(shared);
 	}
-	return ;
+	shared_destroy_bonus(shared);
+	exit(1);
 }

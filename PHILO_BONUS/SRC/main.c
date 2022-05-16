@@ -6,7 +6,7 @@
 /*   By: hmoubal <hmoubal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 19:07:58 by hmoubal           #+#    #+#             */
-/*   Updated: 2022/05/15 21:43:24 by hmoubal          ###   ########.fr       */
+/*   Updated: 2022/05/16 17:16:47 by hmoubal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,13 @@ void	*check_death(void *arg)
 	while(1)
 	{
 		sem_wait(shared->death);
-		exit(1);
+		if (ft_time_bonus() - shared->last_meal > shared->philo_life / 1000)
+		{
+			shared_destroy_bonus(shared);
+			printf("%ld %d died\n", ft_time_bonus() - shared->start_counter, shared->index + 1);
+			exit(1);
+		}
+		sem_post(shared->death);
 	}
 }
 
@@ -32,16 +38,17 @@ void	ft_start(t_shared *shared, int i)
 		shared_destroy_bonus(shared);
 		exit(1);
 	}
-	pthread_detach(th);
 	shared->index = i;
 	ft_routine_1_bonus(shared);
 }
 
 int	ft_proc(t_shared *shared)
 {
-	int		i;
+	int	i;
+	int	j;
 
 	i = 0;
+	j = 0;
 	shared->pid = (pid_t *)malloc(sizeof(pid_t) * shared->philo_count);
 	if (shared->pid == NULL)
 		return (1);
@@ -52,11 +59,17 @@ int	ft_proc(t_shared *shared)
 			ft_start(shared, i);
 		i++;
 	}
+	i = 0;
 	while (1)
 	{
-		printf("waiting .. ..\n");
 		waitpid(-1, &i, 0);
-		printf("all done\n");
+		while (j < shared->philo_count)
+		{
+			kill(shared->pid[j],SIGTERM);
+			j++;
+		}
+		// shared_destroy_bonus(shared);
+		return (0);
 	}
 	return (0);
 }
@@ -71,9 +84,13 @@ int	main(int ac, char **av)
 		return (1);
 	sem_unlink("death");
 	sem_unlink("forks");
+	// sem_unlink("check");
+	// sem_unlink("output");
 	shared = shared_init_bonus(av);
-	shared->death = sem_open("death", O_CREAT, 0645, 0);
-	shared->death = sem_open("forks", O_CREAT, 0645, shared->philo_count);
+	shared->death = sem_open("death", O_CREAT, 0645, 1);
+	shared->forks = sem_open("forks", O_CREAT, 0645, shared->philo_count);
+	// shared->check = sem_open("check", O_CREAT, 0645, 1);
+	// shared->output = sem_open("output", O_CREAT, 0645, 1);
 	if (ft_proc(shared) == 1)
 		return (destroy_all_err_bonus(shared), 1);
 	destroy_all_bonus(shared);

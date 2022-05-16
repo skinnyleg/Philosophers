@@ -6,7 +6,7 @@
 /*   By: hmoubal <hmoubal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 18:09:05 by haitam            #+#    #+#             */
-/*   Updated: 2022/05/15 21:27:32 by hmoubal          ###   ########.fr       */
+/*   Updated: 2022/05/16 17:08:00 by hmoubal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <pthread.h>
 # include <sys/time.h>
 # include <fcntl.h>
+#include <signal.h>
 # include <stdbool.h>
 # include <semaphore.h>
 # include "shared_bonus.h"
@@ -45,6 +46,7 @@ int		ft_malloc_bonus(void *tab);
 int		ft_isdigit_bonus(int a);
 long	ft_time_bonus(void);
 void	ft_routine_1_bonus(t_shared *shared);
-int		ft_routine_2_bonus(t_shared *shared);
+void	ft_routine_2_bonus(t_shared *shared);
 bool	try_hold_bonus(t_shared *shared);
+void	increment_sleep_bonus(int duration);
 #endif

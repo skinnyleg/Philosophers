@@ -6,7 +6,7 @@
 /*   By: hmoubal <hmoubal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 15:42:34 by hmoubal           #+#    #+#             */
-/*   Updated: 2022/05/15 21:33:37 by hmoubal          ###   ########.fr       */
+/*   Updated: 2022/05/16 16:39:52 by hmoubal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,12 @@ typedef struct s_shared{
 	int				index;
 	pid_t			*pid;
 	sem_t			*death;
+	sem_t			*check;
+	sem_t			*output;
 	sem_t			*forks;
 }	t_shared;
 
 t_shared	*shared_init_bonus(char **av);
 void		shared_destroy_bonus(t_shared *shared);
-bool		shared_should_die_bonus(t_shared *shared);
+void		shared_should_die_bonus(t_shared *shared);
 #endif

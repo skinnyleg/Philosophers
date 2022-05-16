@@ -6,7 +6,7 @@
 /*   By: hmoubal <hmoubal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 18:55:33 by haitam            #+#    #+#             */
-/*   Updated: 2022/05/15 19:14:30 by hmoubal          ###   ########.fr       */
+/*   Updated: 2022/05/16 17:07:30 by hmoubal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,13 @@ long	ft_time_bonus(void)
 	gettimeofday(&end, NULL);
 	time = (end.tv_sec * 1000 + end.tv_usec / 1000);
 	return (time);
+}
+
+void	increment_sleep_bonus(int duration)
+{
+	long			start;
+
+	start = ft_time_bonus();
+	while (ft_time_bonus() - start < duration / 1000)
+		usleep(100);
 }

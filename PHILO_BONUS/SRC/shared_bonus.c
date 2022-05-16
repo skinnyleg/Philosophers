@@ -6,7 +6,7 @@
 /*   By: hmoubal <hmoubal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 16:29:38 by hmoubal           #+#    #+#             */
-/*   Updated: 2022/05/15 21:41:35 by hmoubal          ###   ########.fr       */
+/*   Updated: 2022/05/16 16:56:36 by hmoubal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ t_shared	*shared_init_bonus(char **av)
 	else
 		shared->max_eat = -2;
 	shared->start_counter = ft_time_bonus();
+	shared->last_meal = ft_time_bonus();
 	if (shared->philo_count == -1
 		|| shared->sleep_time / 1000 == -1
 		|| shared->max_eat == -1
@@ -43,13 +44,13 @@ void	shared_destroy_bonus(t_shared *shared)
 	free(shared);
 }
 
-bool	shared_should_die_bonus(t_shared *shared)
+void	shared_should_die_bonus(t_shared *shared)
 {
+	sem_wait(shared->check);
 	if (ft_time_bonus() - shared->last_meal > shared->philo_life / 1000)
 	{
-		sem_post(shared->death);
 		shared_destroy_bonus(shared);
-		exit(1);
+		sem_post(shared->death);
 	}
-	return (false);
+	sem_post(shared->check);
 }
