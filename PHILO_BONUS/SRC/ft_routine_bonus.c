@@ -6,7 +6,7 @@
 /*   By: hmoubal <hmoubal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 20:45:37 by hmoubal           #+#    #+#             */
-/*   Updated: 2022/05/15 21:27:27 by hmoubal          ###   ########.fr       */
+/*   Updated: 2022/05/15 21:39:18 by hmoubal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ void	ft_routine_1_bonus(t_shared *shared)
 {
 	while (shared->max_eat == -2 || shared->max_eat--)
 	{
-		if (try_hold_(shared) == false)
+		if (try_hold_bonus(shared) == false)
 			break ;
 		printf("%ld %d has taken a fork\n",
 			ft_time() - shared->start_counter, shared->index + 1);
-		if (try_hold(shared) == false)
+		if (try_hold_bonus(shared) == false)
 			break ;
 		printf("%ld %d has taken a fork\n",
 			ft_time() - shared->start_counter, shared->index + 1);

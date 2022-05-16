@@ -6,7 +6,7 @@
 /*   By: hmoubal <hmoubal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 19:07:58 by hmoubal           #+#    #+#             */
-/*   Updated: 2022/05/15 21:30:07 by hmoubal          ###   ########.fr       */
+/*   Updated: 2022/05/15 21:43:24 by hmoubal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	ft_start(t_shared *shared, int i)
 	if (pthread_create(&th, NULL, check_death, shared) != 0)
 	{
 		printf("thread creation error\n");
+		shared_destroy_bonus(shared);
 		exit(1);
 	}
 	pthread_detach(th);
