@@ -6,7 +6,7 @@
 /*   By: hmoubal <hmoubal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 20:45:37 by hmoubal           #+#    #+#             */
-/*   Updated: 2022/05/16 17:32:03 by hmoubal          ###   ########.fr       */
+/*   Updated: 2022/05/16 18:41:15 by hmoubal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	ft_routine_2_bonus(t_shared *shared)
 	printf("%ld %d is thinking\n",
 		ft_time_bonus() - shared->start_counter, shared->index + 1);
 	sem_post(shared->death);
-
 }
 
 void	ft_routine_1_bonus(t_shared *shared)

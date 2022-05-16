@@ -6,27 +6,27 @@
 /*   By: hmoubal <hmoubal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 19:07:58 by hmoubal           #+#    #+#             */
-/*   Updated: 2022/05/16 17:31:42 by hmoubal          ###   ########.fr       */
+/*   Updated: 2022/05/16 18:38:17 by hmoubal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../includes/philo_bonus.h"
+#include "../includes/philo_bonus.h"
 
 void	*check_death(void *arg)
 {
 	t_shared *const	shared = arg;
-	while(1)
+
+	while (1)
 	{
-		sem_wait(shared->death);
-		// sem_wait(shared->check);
+		sem_wait(shared->check);
 		if (ft_time_bonus() - shared->last_meal > shared->philo_life / 1000)
 		{
-			printf("%ld %d died\n", ft_time_bonus() - shared->start_counter, shared->index + 1);
+			printf("%ld %d died\n", ft_time_bonus()
+				- shared->start_counter, shared->index + 1);
 			shared_destroy_bonus(shared);
 			exit(1);
 		}
-		// sem_post(shared->check);
-		sem_post(shared->death);
+		sem_post(shared->check);
 	}
 }
 
@@ -67,7 +67,7 @@ int	ft_proc(t_shared *shared)
 		{
 			while (j < shared->philo_count)
 			{
-				kill(shared->pid[j],SIGTERM);
+				kill (shared->pid[j], SIGTERM);
 				j++;
 			}
 		}
@@ -85,13 +85,11 @@ int	main(int ac, char **av)
 		return (1);
 	sem_unlink("death");
 	sem_unlink("forks");
-	// sem_unlink("check");
-	// sem_unlink("output");
+	sem_unlink("check");
 	shared = shared_init_bonus(av);
 	shared->death = sem_open("death", O_CREAT, 0645, 1);
 	shared->forks = sem_open("forks", O_CREAT, 0645, shared->philo_count);
-	// shared->check = sem_open("check", O_CREAT, 0645, 1);
-	// shared->output = sem_open("output", O_CREAT, 0645, 1);
+	shared->check = sem_open("check", O_CREAT, 0645, 1);
 	if (ft_proc(shared) == 1)
 		return (destroy_all_err_bonus(shared), 1);
 	destroy_all_bonus(shared);

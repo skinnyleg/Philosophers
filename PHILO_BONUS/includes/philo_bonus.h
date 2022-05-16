@@ -6,7 +6,7 @@
 /*   By: hmoubal <hmoubal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 18:09:05 by haitam            #+#    #+#             */
-/*   Updated: 2022/05/16 17:08:00 by hmoubal          ###   ########.fr       */
+/*   Updated: 2022/05/16 17:37:41 by hmoubal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <pthread.h>
 # include <sys/time.h>
 # include <fcntl.h>
-#include <signal.h>
+# include <signal.h>
 # include <stdbool.h>
 # include <semaphore.h>
 # include "shared_bonus.h"

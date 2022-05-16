@@ -6,7 +6,7 @@
 /*   By: hmoubal <hmoubal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 16:29:38 by hmoubal           #+#    #+#             */
-/*   Updated: 2022/05/16 16:56:36 by hmoubal          ###   ########.fr       */
+/*   Updated: 2022/05/16 17:43:19 by hmoubal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,4 @@ void	shared_destroy_bonus(t_shared *shared)
 {
 	free(shared->pid);
 	free(shared);
-}
-
-void	shared_should_die_bonus(t_shared *shared)
-{
-	sem_wait(shared->check);
-	if (ft_time_bonus() - shared->last_meal > shared->philo_life / 1000)
-	{
-		shared_destroy_bonus(shared);
-		sem_post(shared->death);
-	}
-	sem_post(shared->check);
 }
