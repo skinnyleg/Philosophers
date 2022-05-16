@@ -6,7 +6,7 @@
 /*   By: hmoubal <hmoubal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 20:45:37 by hmoubal           #+#    #+#             */
-/*   Updated: 2022/05/16 17:25:30 by hmoubal          ###   ########.fr       */
+/*   Updated: 2022/05/16 17:32:03 by hmoubal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,5 @@ void	ft_routine_1_bonus(t_shared *shared)
 		ft_routine_2_bonus(shared);
 	}
 	shared_destroy_bonus(shared);
-	exit(1);
+	exit(0);
 }

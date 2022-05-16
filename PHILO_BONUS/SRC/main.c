@@ -6,7 +6,7 @@
 /*   By: hmoubal <hmoubal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 19:07:58 by hmoubal           #+#    #+#             */
-/*   Updated: 2022/05/16 17:28:01 by hmoubal          ###   ########.fr       */
+/*   Updated: 2022/05/16 17:31:42 by hmoubal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,16 +61,16 @@ int	ft_proc(t_shared *shared)
 			ft_start(shared, i);
 		i++;
 	}
-	i = 0;
-	while (1)
+	while (waitpid(-1, &i, 0) > 0)
 	{
-		waitpid(-1, &i, 0);
-		while (j < shared->philo_count)
+		if (WIFEXITED(i) && WEXITSTATUS(i) == 1)
 		{
-			kill(shared->pid[j],SIGTERM);
-			j++;
+			while (j < shared->philo_count)
+			{
+				kill(shared->pid[j],SIGTERM);
+				j++;
+			}
 		}
-		break ;
 	}
 	return (0);
 }
