@@ -6,7 +6,7 @@
 /*   By: hmoubal <hmoubal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 19:07:58 by hmoubal           #+#    #+#             */
-/*   Updated: 2022/05/16 17:16:47 by hmoubal          ###   ########.fr       */
+/*   Updated: 2022/05/16 17:28:01 by hmoubal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,14 @@ void	*check_death(void *arg)
 	while(1)
 	{
 		sem_wait(shared->death);
+		// sem_wait(shared->check);
 		if (ft_time_bonus() - shared->last_meal > shared->philo_life / 1000)
 		{
-			shared_destroy_bonus(shared);
 			printf("%ld %d died\n", ft_time_bonus() - shared->start_counter, shared->index + 1);
+			shared_destroy_bonus(shared);
 			exit(1);
 		}
+		// sem_post(shared->check);
 		sem_post(shared->death);
 	}
 }
@@ -68,8 +70,7 @@ int	ft_proc(t_shared *shared)
 			kill(shared->pid[j],SIGTERM);
 			j++;
 		}
-		// shared_destroy_bonus(shared);
-		return (0);
+		break ;
 	}
 	return (0);
 }
