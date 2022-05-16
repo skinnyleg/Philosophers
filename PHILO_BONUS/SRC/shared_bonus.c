@@ -6,7 +6,7 @@
 /*   By: hmoubal <hmoubal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/13 16:29:38 by hmoubal           #+#    #+#             */
-/*   Updated: 2022/05/16 17:43:19 by hmoubal          ###   ########.fr       */
+/*   Updated: 2022/05/16 19:06:31 by hmoubal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_shared	*shared_init_bonus(char **av)
 		|| shared->max_eat == -1
 		|| shared->philo_life / 1000 == -1
 		|| shared->eating_time / 1000 == -1)
-		return (NULL);
+		return (free(shared), NULL);
 	return (shared);
 }
 

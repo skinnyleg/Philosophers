@@ -6,7 +6,7 @@
 /*   By: hmoubal <hmoubal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 19:07:58 by hmoubal           #+#    #+#             */
-/*   Updated: 2022/05/16 18:44:20 by hmoubal          ###   ########.fr       */
+/*   Updated: 2022/05/16 19:09:17 by hmoubal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,13 @@ int	main(int ac, char **av)
 	sem_unlink("forks");
 	sem_unlink("check");
 	shared = shared_init_bonus(av);
+	if (shared == NULL)
+		return (1);
 	shared->death = sem_open("death", O_CREAT, 0645, 1);
 	shared->forks = sem_open("forks", O_CREAT, 0645, shared->philo_count);
 	shared->check = sem_open("check", O_CREAT, 0645, 1);
 	if (ft_proc(shared) == 1)
 		return (destroy_all_err_bonus(shared), 1);
 	destroy_all_bonus(shared);
+	return (0);
 }
