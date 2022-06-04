@@ -6,7 +6,7 @@
 /*   By: hmoubal <hmoubal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 20:08:06 by hmoubal           #+#    #+#             */
-/*   Updated: 2022/05/14 15:33:34 by hmoubal          ###   ########.fr       */
+/*   Updated: 2022/06/04 21:02:48 by hmoubal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ int	main(int ac, char **av)
 	if (ft_checknumbers(av) == 1)
 		return (1);
 	i = ft_atoi(av[1]);
+	if (i == 0)
+		return (0);
 	philo = args_create(i, av);
 	if (philo == NULL)
 		return (destroy_all_err(philo), 1);
