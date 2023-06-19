@@ -1,6 +1,6 @@
 CC = cc
 
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra #-g -fsanitize=thread
 
 CFILES = main.c\
 		ft_checknum_bonus.c\
@@ -24,7 +24,7 @@ NAME = philo_bonus
 bonus : $(NAME)
 
 $(NAME) : $(OFILES)
-	@$(CC) $(OFILES) -pthread -o $(NAME)
+	@$(CC) $(OFILES) -pthread -g -fsanitize=thread -o $(NAME)
 	@echo "done for philo_bonus"
 
 $(OBJ_DIR) :

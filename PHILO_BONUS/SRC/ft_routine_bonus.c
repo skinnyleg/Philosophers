@@ -6,7 +6,7 @@
 /*   By: hmoubal <hmoubal@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 20:45:37 by hmoubal           #+#    #+#             */
-/*   Updated: 2022/05/16 18:41:15 by hmoubal          ###   ########.fr       */
+/*   Updated: 2023/06/19 01:10:20 by hmoubal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ void	ft_routine_1_bonus(t_shared *shared)
 		sem_wait(shared->death);
 		printf("%ld %d has taken a fork\n",
 			ft_time_bonus() - shared->start_counter, shared->index + 1);
-		sem_post(shared->death);
+		sem_wait(shared->check);
 		shared->last_meal = ft_time_bonus();
-		sem_wait(shared->death);
+		sem_post(shared->check);
 		printf("%ld %d is eating\n",
 			ft_time_bonus() - shared->start_counter, shared->index + 1);
 		sem_post(shared->death);
